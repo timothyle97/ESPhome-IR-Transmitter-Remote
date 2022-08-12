@@ -121,3 +121,10 @@ switch:
       remote_transmitter.transmit_nec:
         address: 0xfb04
         command: 0xd02f
+        
+  - platform: template
+    name: "THV TV Exit"
+    turn_on_action:
+      remote_transmitter.transmit_nec:
+        address: 0xfb04
+        command: 0xb649
