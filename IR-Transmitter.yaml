@@ -49,28 +49,28 @@ switch:
     assumed_state: True
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0008
+        address: 0xfb04
+        command: 0xf708
     turn_off_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0008
+        address: 0xfb04
+        command: 0xf708
  
 
   - platform: template
     name: "THV TV Vol +"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0002
+        address: 0xfb04
+        command: 0xfd02
         
 
   - platform: template
     name: "THV TV Vol -"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0003
+        address: 0xfb04
+        command: 0xfc03
         
   - platform: template
     name: "Mute"
@@ -78,54 +78,54 @@ switch:
     assumed_state: True
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0009
+        address: 0xfb04
+        command: 0xf609
         
   - platform: template
     name: "THV TV Menu"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0043
+        address: 0xfb04
+        command: 0xbc43
         
   - platform: template
     name: "THV TV Left"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0047
+        address: 0xfb04
+        command: 0xb847
         
   - platform: template
     name: "THV TV Right"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0048
+        address: 0xfb04
+        command: 0xb748
         
   - platform: template
     name: "THV TV Up"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0045
+        address: 0xfb04
+        command: 0xba45
         
   - platform: template
     name: "THV TV Down"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0046
+        address: 0xfb04
+        command: 0xb946
         
   - platform: template
     name: "THV TV OK"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x0044
+        address: 0xfb04
+        command: 0xbb44
         
   - platform: template
     name: "THV TV Input"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x0004
-        command: 0x002F
+        address: 0xfb04
+        command: 0xd02f
