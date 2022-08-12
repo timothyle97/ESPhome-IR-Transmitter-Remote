@@ -2,6 +2,7 @@
 Yaml code example for an IR transmitter in ESPhome.
 
 Modified for use with NEC devices. WiFi parameters moved to secrets file. 
+Used NEC conversion from https://gist.github.com/kelvie/891fc8bfc8353594136ee1ac790e60f7
 
 
 # Usage
