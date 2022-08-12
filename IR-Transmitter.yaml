@@ -1,17 +1,24 @@
 esphome:
-  name: ir_transmitter
-  platform: ESP8266
-  board: d1_mini
+  name: thv_ir_transmitter
+  board: esp32dev
+  framework:
+    type: arduino
   
-web_server:
-  port: 80
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "XXXXXXXXXX"
 
 wifi:
   fast_connect: true
   networks:
-  - ssid: "YOUR-SSID"
-    password: YOUR-PASSWORD
-    hidden: true
+  - ssid: !secret wifi_ssid
+    password: !secret wifi_password
+    power_save_mode: none
     manual_ip:
       # Set this to the IP of the ESP
       static_ip: x.x.x.x
@@ -23,23 +30,11 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "IR Remote Fallback Hotspot"
+    ssid: "THV IR Remote Fallback Hotspot"
     password: "AP-PASSWORD"
 
 
 captive_portal:
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  password: "0301"
-
-ota:
-  password: "0301"
-
-
   
 remote_transmitter:
   pin: D6
@@ -49,81 +44,88 @@ remote_transmitter:
 switch:
 
   - platform: template
-    name: "Bedroom TV Power Toggle"
+    name: "THV TV Power Toggle"
     optimistic: True
     assumed_state: True
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DF10EF
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x0800
     turn_off_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DFA35C
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x0800
  
 
   - platform: template
-    name: "Bedroom Vol +"
+    name: "THV TV Vol +"
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DF40BF
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x0200
         
 
   - platform: template
-    name: "Bedroom Vol -"
+    name: "THV TV Vol -"
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DFC03F
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x0300
         
   - platform: template
     name: "Mute"
     optimistic: True
     assumed_state: True
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DF906F
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x0900
         
   - platform: template
-    name: "Menu"
+    name: "THV TV Menu"
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DFC23D
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x4300
         
   - platform: template
-    name: "Left"
+    name: "THV TV Left"
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DFE01F
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x4700
         
   - platform: template
-    name: "Right"
+    name: "THV TV Right"
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DF609F
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x4800
         
   - platform: template
-    name: "Up"
+    name: "THV TV Up"
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DF02FD
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x4500
         
   - platform: template
-    name: "Down"
+    name: "THV TV Down"
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DF827D
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x4600
         
   - platform: template
-    name: "OK"
+    name: "THV TV OK"
     turn_on_action:
-      remote_transmitter.transmit_lg:
-        data: 0x20DF22DD
-        nbits: 32
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x4400
+        
+  - platform: template
+    name: "THV TV Input"
+    turn_on_action:
+      remote_transmitter.transmit_nec:
+        address: 0x0400
+        command: 0x2F00
