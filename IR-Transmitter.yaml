@@ -45,13 +45,7 @@ switch:
 
   - platform: template
     name: "THV TV Power Toggle"
-    optimistic: True
-    assumed_state: True
     turn_on_action:
-      remote_transmitter.transmit_nec:
-        address: 0xfb04
-        command: 0xf708
-    turn_off_action:
       remote_transmitter.transmit_nec:
         address: 0xfb04
         command: 0xf708
@@ -74,8 +68,6 @@ switch:
         
   - platform: template
     name: "Mute"
-    optimistic: True
-    assumed_state: True
     turn_on_action:
       remote_transmitter.transmit_nec:
         address: 0xfb04
