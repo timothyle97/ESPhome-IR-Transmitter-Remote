@@ -1,6 +1,8 @@
 # ESPhome-IR-Transmitter-Remote
 Yaml code example for an IR transmitter in ESPhome.
 
+Modified for use with NEC devices. WiFi parameters moved to secrets file. 
+
 
 # Usage
 - change the SSID and password to that of your network, or point them to a secrets file. also dont forget to set your IP network settings. or simply copy paste in your known good esphome wifi code block which you use with your other sensors/nodes.
