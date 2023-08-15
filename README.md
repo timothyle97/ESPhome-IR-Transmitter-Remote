@@ -21,7 +21,7 @@ Example of the Smart Home Module playing music with the buzzer: https://youtu.be
   - Bit-reverse the device number '07' to get 'E0'
   - Bit-reverse the subdevice number (also '07') to get 'E0'
   - Convert 152 to hexadecimal and reverse the bits to get '19'
-  - Calculate the last two digits as ( 0xFF - the bit-reversed OBC ), 0xFF - 0x19 = 0xE6, giving the final 8 bits 'E6'
+  - Calculate the last two digits as ( 0xFF - the bit-reversed OBC ), 0xFF - 0x19 = 0xE6, giving the final 8 bits 'E6' (example hex calculator: https://www.calculator.net/hex-calculator.html)
 - The full list of Samsung remote codes can be found here: https://github.com/probonopd/irdb/blob/master/codes/Samsung/TV/7%2C7.csv
 
 # IR Sensor.
