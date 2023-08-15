@@ -1,0 +1,225 @@
+esphome:
+  name: tv-controller-adv
+  friendly_name: tv-controller-adv
+  comment: ASTRA BR4G8AL ESP32 Smart Home Module
+  on_boot: # buzzer on on startup
+    priority: -100
+    then:
+    - rtttl.play: 'StarWars:d=4,o=5,b=45:32p,32f#,32f#,32f#,8b.,8f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32e6,8c#.6,32f#,32f#,32f#,8b.,8f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32e6,8c#6'
+    - output.turn_on: thv_tv_activation_switch_led
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "XXXXXXXXXX"
+  services:
+    - service: play_rtttl
+      variables: 
+        song_str: string
+      then:
+        - rtttl.play:
+            rtttl: !lambda 'return song_str;'
+
+ota:
+  password: "XXXXXXXXXX"
+
+wifi:
+  #power_save_mode: none
+  use_address: xxx.xxx.xxx.xxx
+  networks:
+  - ssid: !secret wifi_ssid
+    password: !secret wifi_password
+  - ssid: !secret wifi_ssid_alternate
+    password: !secret wifi_password_alternate
+    manual_ip:
+      static_ip: xxx.xxx.xxx.xxx
+      gateway: xxx.xxx.xxx.xxx
+      subnet: xxx.xxx.xxx.xxx
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "TV-Controller-Adv"
+    password: "XXXXXXXXXX"
+
+captive_portal:
+
+status_led:
+  pin:
+    number: GPIO4
+    inverted: true
+
+output:
+  - platform: ledc
+    pin: GPIO12
+    id: rtttl_out
+
+  - platform: gpio
+    pin: 15
+    id: thv_tv_activation_switch_led
+
+rtttl:
+  output: rtttl_out
+  on_finished_playback:
+    - logger.log: "Song playback ended!"
+    
+remote_transmitter:
+  pin: 14
+  carrier_duty_percent: 50%
+
+esp32_ble_tracker:
+
+# Individual switches
+switch:
+
+  - platform: template
+    name: "THV TV Power Toggle Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E040BF
+ 
+
+  - platform: template
+    name: "THV TV Vol + Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E0E01F
+        
+
+  - platform: template
+    name: "THV TV Vol - Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E0D02F
+        
+  - platform: template
+    name: "THV TV Mute Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E0F00F
+        
+  - platform: template
+    name: "THV TV Menu Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E04BB4
+        
+  - platform: template
+    name: "THV TV Left Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E0A659
+        
+  - platform: template
+    name: "THV TV Right Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E046B9
+        
+  - platform: template
+    name: "THV TV Up Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E006F9
+        
+  - platform: template
+    name: "THV TV Down Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E08679
+        
+  - platform: template
+    name: "THV TV OK Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E016E9
+        
+  - platform: template
+    name: "THV TV Input Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E09E61
+        
+  - platform: template
+    name: "THV TV Exit Adv"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E01AE5
+
+  - platform: template
+    name: "THV TV Channel Up"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E048B7
+
+  - platform: template
+    name: "THV TV Channel Down"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E008F7
+
+  - platform: template
+    name: "THV TV HDMI 1"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E09768
+
+  - platform: template
+    name: "THV TV HDMI 2"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E07D82
+
+  - platform: template
+    name: "THV TV HDMI 3"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E043BC
+
+  - platform: template
+    name: "THV TV HDMI 4"
+    turn_on_action:
+      remote_transmitter.transmit_samsung:
+        data: 0xE0E0A35C
+
+  - platform: gpio
+    name: "THV TV Switch"
+    pin: 25
+    id: thv_tv_adv
+
+  - platform: gpio
+    name: "THV TV Lamp Switch"
+    pin: 26
+    id: thv_tv_lamp_adv
+
+binary_sensor:
+  - platform: gpio
+    name: "THV TV Activation Switch Adv"
+    pin:
+      number: 13
+      mode:
+        input: true
+        pulldown: true
+    filters:
+      - delayed_on: 30ms
+    on_press:
+      then:
+        - rtttl.play: 'TopGun:d=4,o=4,b=31:32p,16c#,16g#,16g#,32f#,32f,32f#,32f,16d#,16d#,32c#,32d#,16f,32d#,32f,16f#,32f,32c#,16f,d#,16c#,16g#,16g#,32f#,32f,32f#,32f,16d#,16d#,32c#,32d#,16f,32d#,32f,16f#,32f,32c#,g#'
+
+sensor:
+  - platform: wifi_signal
+    id: thv_tv_ir_adv_wifi_signal
+    name: "THV TV IR Adv WiFi Signal"
+    update_interval: 120s
+
+  - platform: internal_temperature
+    name: "THV TV Internal Temperature"
+    update_interval: 120s
+    id: thv_tv_internal_temperature
