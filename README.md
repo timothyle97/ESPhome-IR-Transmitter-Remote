@@ -13,6 +13,12 @@ Used NEC conversion from https://gist.github.com/kelvie/891fc8bfc8353594136ee1ac
 # Getting Your Remote Codes
 - This code example uses NEC codes, other codes can be found online by searching 'tv brand' IR codes.
 - If you're unable to find codes, the codes you find do not work for your TV, or ou have an off brand Aldi TV brand like Bauhn, etc. you can acquire your codes by using the IR sensor.yaml.
+- This latest commit has the codes switched to Samsung codes. The samsung_tv_remote_codes details the code conversions specifically frome ESPHome. They were calculated using this guide (and quoted below): https://stackoverflow.com/questions/60718588/understanding-ir-codes-for-samsung-tv
+  - Bit-reverse the device number '07' to get 'E0'
+  - Bit-reverse the subdevice number (also '07') to get 'E0'
+  - Convert 152 to hexadecimal and reverse the bits to get '19'
+  - Calculate the last two digits as ( 0xFF - the bit-reversed OBC ), 0xFF - 0x19 = 0xE6, giving the final 8 bits 'E6'
+- The full list of Samsung remote codes can be found here: https://github.com/probonopd/irdb/blob/master/codes/Samsung/TV/7%2C7.csv
 
 # IR Sensor.
 - This yaml code allows you to view all captured codes within an ESPhome terminal either over serial or OTA.
