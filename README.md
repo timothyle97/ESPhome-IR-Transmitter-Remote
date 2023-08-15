@@ -1,8 +1,12 @@
 # ESPhome-IR-Transmitter-Remote
 Yaml code example for an IR transmitter in ESPhome.
 
-Modified for use with NEC devices. WiFi parameters moved to secrets file. 
+IR-Transmitter.yaml: Modified for use with NEC devices. WiFi parameters moved to secrets file. 
 Used NEC conversion from https://gist.github.com/kelvie/891fc8bfc8353594136ee1ac790e60f7
+
+IR-Transmitter-Astra-Samsung.yaml: Modified for an Astra AR4GBAL Smart Home Module controlling an IR blaster and relay module. 
+Used Samsung IR Code conversion listed below. 
+Example of the Smart Home Module playing music with the buzzer: https://youtu.be/OEd-MD4axUU
 
 
 # Usage
